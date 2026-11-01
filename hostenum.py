@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 HostEnum — local privilege / system enumeration helper
-D3F4ULT
+D3F4UL7T
 
 Collects host facts useful during authorized post-exploitation labs.
 Linux primary. Windows via limited checks when run under WSL or remote.
@@ -28,7 +28,7 @@ BANNER = r"""
 / /_/ // / /_/ (__  ) /__/ / / / /___/ / / / /_/ / / / / / /
 \____//_/\____/____/\___/_/ /_/_____/_/ /_/\__,_/_/ /_/ /_/
 
-  local system enumeration  |  D3F4ULT
+  local system enumeration  |  D3F4UL7T
 """
 
 
@@ -141,7 +141,7 @@ def write_report(path: str, text: str) -> None:
 def main() -> None:
     p = argparse.ArgumentParser(
         prog="hostenum",
-        description="HostEnum — local system enumeration (D3F4ULT)",
+        description="HostEnum — local system enumeration (D3F4UL7T)",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 examples:

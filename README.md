@@ -2,7 +2,7 @@
 
 Local system enumeration for authorized post-exploitation labs.
 
-D3F4ULT
+**Developed by [D3F4UL7T](https://github.com/D3F4UL7T)**
 
 Collects host identity, network state, users, processes, SUID/capabilities, and other high-signal facts in one pass. Linux primary.
 
@@ -43,3 +43,15 @@ python3 hostenum.py -o report.txt
 Companion to [OffKit](https://github.com/D3F4UL7T/OffKit).
 
 Lab and authorized use only. Unauthorized access is illegal. Author assumes no liability for misuse.
+
+---
+
+## Credits
+
+**Developed by [D3F4UL7T](https://github.com/D3F4UL7T)**
+
+```
+root@D3F4ULT:~# whoami
+D3F4UL7T
+```
+
