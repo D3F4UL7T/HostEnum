@@ -31,7 +31,6 @@ BANNER = r"""
   local system enumeration  |  D3F4UL7T
 """
 
-
 def run(cmd: list[str] | str, timeout: float = 8.0, shell: bool = False) -> str:
     try:
         r = subprocess.run(
@@ -46,16 +45,13 @@ def run(cmd: list[str] | str, timeout: float = 8.0, shell: bool = False) -> str:
     except Exception as e:
         return f"error: {e}"
 
-
 def section(title: str) -> None:
     print(f"\n[{title}]")
     print("-" * 50)
 
-
 def line(label: str, value: str) -> None:
     value = value.replace("\n", "\n" + " " * 14) if value else "-"
     print(f"  {label:12} {value}")
-
 
 def enum_identity() -> None:
     section("identity")
@@ -69,7 +65,6 @@ def enum_identity() -> None:
     except Exception:
         pass
 
-
 def enum_system() -> None:
     section("system")
     line("os", f"{platform.system()} {platform.release()}")
@@ -81,7 +76,6 @@ def enum_system() -> None:
     line("uptime", run(["uptime"]))
     line("date", datetime.now().isoformat())
 
-
 def enum_network() -> None:
     section("network")
     line("ifaces", run("ip -br a 2>/dev/null || ifconfig -a 2>/dev/null || ipconfig 2>/dev/null", shell=True))
@@ -89,7 +83,6 @@ def enum_network() -> None:
     line("listen", run("ss -tulnp 2>/dev/null || netstat -tulnp 2>/dev/null", shell=True))
     line("resolv", run(["cat", "/etc/resolv.conf"]) if Path("/etc/resolv.conf").exists() else "-")
     line("hosts", run(["cat", "/etc/hosts"]) if Path("/etc/hosts").exists() else "-")
-
 
 def enum_users() -> None:
     section("users")
@@ -101,20 +94,17 @@ def enum_users() -> None:
     line("home", run(["ls", "-la", "/home"]))
     line("logged", run(["w"]))
 
-
 def enum_procs() -> None:
     section("processes")
     line("ps", run(["ps", "auxf"]))
     line("cron", run("ls -la /etc/cron* 2>/dev/null; crontab -l 2>/dev/null", shell=True))
     line("systemd", run("systemctl list-units --type=service --state=running 2>/dev/null | head -40", shell=True))
 
-
 def enum_suid() -> None:
     section("suid / capabilities")
     line("suid", run("find / -perm -4000 -type f 2>/dev/null | head -60", shell=True))
     line("sgid", run("find / -perm -2000 -type f 2>/dev/null | head -30", shell=True))
     line("caps", run("getcap -r / 2>/dev/null | head -40", shell=True))
-
 
 def enum_files() -> None:
     section("interesting files")
@@ -125,18 +115,15 @@ def enum_files() -> None:
     if Path("/var/www").exists():
         line("www", run(["ls", "-la", "/var/www"]))
 
-
 def enum_docker() -> None:
     section("containers")
     line("docker", run("docker ps -a 2>/dev/null || echo none", shell=True))
     line("cgroup", run(["cat", "/proc/1/cgroup"]) if Path("/proc/1/cgroup").exists() else "-")
     line(".dockerenv", "yes" if Path("/.dockerenv").exists() else "no")
 
-
 def write_report(path: str, text: str) -> None:
     Path(path).write_text(text, encoding="utf-8")
     print(f"\n[+] report written: {path}")
-
 
 def main() -> None:
     p = argparse.ArgumentParser(
@@ -157,7 +144,7 @@ examples:
     p.add_argument("--version", action="version", version=f"HostEnum {VERSION}")
     args = p.parse_args()
 
-    # capture output if requested
+                                 
     buf: list[str] = []
     if args.out:
         class Tee:
@@ -166,7 +153,7 @@ examples:
                 return sys.__stdout__.write(s)
             def flush(self) -> None:
                 sys.__stdout__.flush()
-        sys.stdout = Tee()  # type: ignore
+        sys.stdout = Tee()                
 
     print(BANNER)
     print(f"[*] HostEnum {VERSION}")
@@ -190,7 +177,6 @@ examples:
     if args.out:
         sys.stdout = sys.__stdout__
         write_report(args.out, "".join(buf))
-
 
 if __name__ == "__main__":
     main()
